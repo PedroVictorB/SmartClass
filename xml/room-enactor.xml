@@ -4,6 +4,8 @@
 
 	<InWidget  href="room-widget.xml" />
 	<OutWidget href="light-widget.xml" />
+        <OutWidget href="computer-widget.xml" />
+        <OutWidget href="projector-widget.xml" />
 	
 	<OutcomeName>light</OutcomeName>
 	
@@ -19,7 +21,7 @@
 	
 	<Reference name="On">
 		<Query name="lightOn">
-			(EQUAL presence 1)
+			(ELSE (EQUAL presence 1))
 		</Query>
 		<Outcome outAttribute="light">1</Outcome>
 		<ServiceInput service="LightService" function="lightControl">
