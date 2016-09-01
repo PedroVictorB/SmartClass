@@ -5,6 +5,14 @@
  */
 package smartclass;
 
+import context.arch.discoverer.Discoverer;
+import context.arch.enactor.Enactor;
+import context.arch.enactor.EnactorXmlParser;
+import context.arch.widget.Widget;
+import context.arch.widget.WidgetXmlParser;
+import smartclass.services.LightService;
+import smartclass.ui.ClassUI;
+
 /**
  *
  * @author Pedro
@@ -23,6 +31,23 @@ public class SmartClass {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Discoverer.start();
+        
+        Widget roomWidget = WidgetXmlParser.createWidget("xml/room-widget.xml");
+        //Widget projectorWidget = WidgetXmlParser.createWidget("xml/projector-widget.xml");
+        //Widget computerWidget = WidgetXmlParser.createWidget("xml/computer-widget.xml");
+        Widget lightWidget = WidgetXmlParser.createWidget("xml/light-widget.xml");
+        Enactor roomEnactor = EnactorXmlParser.createEnactor("xml/room-enactor.xml");
+        
+        LightService ls = new LightService(lightWidget);
+        lightWidget.addService(ls);
+        
+        lightWidget.start(true);
+        roomWidget.start(true);
+        //roomEnactor.start();
+        
+        ClassUI classSensors = new ClassUI(roomWidget);
+        classSensors.setVisible(true);
         
     }
     

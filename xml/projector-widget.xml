@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Widget xmlns="http://www.contexttoolkit.org/ctk" name="LightWidget">
+<Widget xmlns="http://www.contexttoolkit.org/ctk" name="ProjectorWidget">
 	<Attributes>
-		<Attribute name="light" type="int" />
+		<Attribute name="status" type="int" />
 	</Attributes>
 </Widget>

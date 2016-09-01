@@ -9,10 +9,7 @@
 	
 	<Reference name="Off">
 		<Query name="lightOff">
-			(OR
-				(EQUAL presence 0)
-				(GREATER brightness 100)
-			)
+			(EQUAL presence 0)
 		</Query>
 		<Outcome outAttribute="light">0</Outcome>
 		<ServiceInput service="LightService" function="lightControl">
@@ -22,13 +19,9 @@
 	
 	<Reference name="On">
 		<Query name="lightOn">
-			(ELSE 
-				(QUERY lightOff)
-			)
+			(EQUAL presence 1)
 		</Query>
-		<Outcome outAttribute="light">
-			10 * Math.pow(150 - brightness, 0.33) / Math.pow(150, 0.33);
-		</Outcome>
+		<Outcome outAttribute="light">1</Outcome>
 		<ServiceInput service="LightService" function="lightControl">
 			<Attribute name="light" />
 		</ServiceInput>

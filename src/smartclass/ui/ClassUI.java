@@ -5,16 +5,22 @@
  */
 package smartclass.ui;
 
+import context.arch.widget.Widget;
+
 /**
  *
  * @author Pedro
  */
 public class ClassUI extends javax.swing.JFrame {
 
+    private final Widget roomWidget;
+
     /**
      * Creates new form ClassUI
+     * @param roomWidget
      */
-    public ClassUI() {
+    public ClassUI(final Widget roomWidget) {
+        this.roomWidget = roomWidget;
         initComponents();
     }
 
@@ -28,6 +34,7 @@ public class ClassUI extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
@@ -66,9 +73,21 @@ public class ClassUI extends javax.swing.JFrame {
 
         jLabel3.setText("Presença");
 
+        buttonGroup2.add(jRadioButton5);
         jRadioButton5.setText("Professor na sala");
+        jRadioButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton5MouseClicked(evt);
+            }
+        });
 
+        buttonGroup2.add(jRadioButton6);
         jRadioButton6.setText("Professor fora da sala");
+        jRadioButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton6MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,6 +159,20 @@ public class ClassUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jRadioButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton5MouseClicked
+        if(jRadioButton5.isSelected()){
+            roomWidget.updateData("presence", (Integer)1);
+        }
+        System.out.println(1);
+    }//GEN-LAST:event_jRadioButton5MouseClicked
+
+    private void jRadioButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton6MouseClicked
+        if(jRadioButton5.isSelected()){
+            roomWidget.updateData("presence", (Integer)0);
+        }
+        System.out.println(0);
+    }//GEN-LAST:event_jRadioButton6MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -166,17 +199,11 @@ public class ClassUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ClassUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClassUI().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
