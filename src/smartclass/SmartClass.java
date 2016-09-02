@@ -11,6 +11,7 @@ import context.arch.enactor.Enactor;
 import context.arch.enactor.EnactorXmlParser;
 import context.arch.widget.Widget;
 import context.arch.widget.WidgetXmlParser;
+import javax.swing.SwingUtilities;
 import smartclass.enactor.RoomEnactor;
 import smartclass.services.LightService;
 import smartclass.ui.ClassRoomUI;
@@ -41,26 +42,20 @@ public class SmartClass {
         Widget lightWidget = WidgetXmlParser.createWidget("xml/light-widget.xml");
 //        Enactor roomEnactor = EnactorXmlParser.createEnactor("xml/room-enactor.xml");
 //        System.out.println(roomEnactor.getId());
+
         LightService ls = new LightService(lightWidget);
         lightWidget.addService(ls);
-//        
-//        projectorWidget.start(true);
-//        computerWidget.start(true);
-//        lightWidget.start(true);
-//        roomWidget.start(true);
-//        roomEnactor.start();
-
 
         AbstractQueryItem<?, ?> roomWidgetQuery = WidgetXmlParser.createWidgetSubscriptionQuery(roomWidget);
         AbstractQueryItem<?, ?> lightWidgetQuery = WidgetXmlParser.createWidgetSubscriptionQuery(lightWidget);
 
         RoomEnactor roomEnactor = new RoomEnactor(roomWidgetQuery, lightWidgetQuery, "light", "");
-
+        
         ClassUI classSensors = new ClassUI(roomWidget);
         classSensors.setVisible(true);
-        
-        ClassRoomUI classRoom = ClassRoomUI.getInstance();
-        classRoom.setVisible(true);
+
+//        ClassRoomUI classRoom = ClassRoomUI.getInstance();
+//        classRoom.setVisible(true);
 
     }
 

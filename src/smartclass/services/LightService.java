@@ -11,6 +11,7 @@ import context.arch.service.helper.FunctionDescription;
 import context.arch.service.helper.FunctionDescriptions;
 import context.arch.service.helper.ServiceInput;
 import context.arch.widget.Widget;
+import javax.swing.SwingUtilities;
 import smartclass.ui.ClassRoomUI;
 
 /**
@@ -34,10 +35,14 @@ public class LightService extends Service {
     @Override
     public DataObject execute(ServiceInput si) {
         int light = si.getInput().getAttributeValue("light");
-        if(light == 1){
-            ClassRoomUI.getInstance().lightOn();
-        }else{
-            ClassRoomUI.getInstance().lightOff();
+        if (light == 1) {
+            ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
+            classRoomUI.setVisible(true);
+            classRoomUI.lightOn();
+        } else {
+            ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
+            classRoomUI.setVisible(true);
+            classRoomUI.lightOff();
         }
         return new DataObject(); // no particular info to return
     }

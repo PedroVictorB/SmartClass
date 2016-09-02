@@ -5,23 +5,13 @@
  */
 package smartclass.ui;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  *
  * @author Pedro
  */
 public class ClassRoomUI extends javax.swing.JFrame {
 
-    static ClassRoomUI classRoomUI = null;
+    private static ClassRoomUI classRoomUI = new ClassRoomUI();
 
     /**
      * Creates new form ClassRoomUI
@@ -31,37 +21,16 @@ public class ClassRoomUI extends javax.swing.JFrame {
         jLabel4.setVisible(false);
     }
 
-    public static ClassRoomUI getInstance() {
-        if (classRoomUI != null) {
-            return classRoomUI;
-        }
-        return new ClassRoomUI();
+    public static synchronized ClassRoomUI getInstance() {
+        return classRoomUI;
     }
 
     public void lightOn() {
-//        ImageIcon icon = new ImageIcon("src/smartclass/ui/imagens/sala_luz_ligada.png");
-//        icon.getImage().flush();
-//        jLabel1.setIcon(icon);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/sala_luz_ligada.png"))); // NOI18N
-        
-//        File imgF = new File("src/smartclass/ui/imagens/sala_luz_ligada.png");
-//        try {
-//            System.out.println(
-//                    "About to load " + imgF.getCanonicalPath() 
-//                    + " exists=" + imgF.exists());
-//        } catch(IOException ioe) {
-//            ioe.printStackTrace();
-//            System.exit(0);
-//        }
-//        
-//        jLabel1.repaint();
-        System.out.println("aqui");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/sala_luz_ligada.png")));
     }
 
     public void lightOff() {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/sala_luz_desligada.png")));
-        jLabel1.repaint();
-        System.out.println("aqui2");
     }
 
     /**
