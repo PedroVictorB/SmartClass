@@ -13,6 +13,7 @@ import context.arch.widget.Widget;
 import context.arch.widget.WidgetXmlParser;
 import smartclass.enactor.RoomEnactor;
 import smartclass.services.LightService;
+import smartclass.ui.ClassRoomUI;
 import smartclass.ui.ClassUI;
 
 /**
@@ -57,6 +58,9 @@ public class SmartClass {
 
         ClassUI classSensors = new ClassUI(roomWidget);
         classSensors.setVisible(true);
+        
+        ClassRoomUI classRoom = ClassRoomUI.getInstance();
+        classRoom.setVisible(true);
 
     }
 

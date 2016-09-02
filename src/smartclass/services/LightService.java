@@ -11,6 +11,7 @@ import context.arch.service.helper.FunctionDescription;
 import context.arch.service.helper.FunctionDescriptions;
 import context.arch.service.helper.ServiceInput;
 import context.arch.widget.Widget;
+import smartclass.ui.ClassRoomUI;
 
 /**
  *
@@ -24,7 +25,7 @@ public class LightService extends Service {
             {
                 add(new FunctionDescription(
                         "lightControl",
-                        "Sets the light level of the lamp",
+                        "Sets the light on or off",
                         widget.getNonConstantAttributes()));
             }
         });
@@ -33,7 +34,11 @@ public class LightService extends Service {
     @Override
     public DataObject execute(ServiceInput si) {
         int light = si.getInput().getAttributeValue("light");
-        System.out.println("Service: "+light);
+        if(light == 1){
+            ClassRoomUI.getInstance().lightOn();
+        }else{
+            ClassRoomUI.getInstance().lightOff();
+        }
         return new DataObject(); // no particular info to return
     }
 

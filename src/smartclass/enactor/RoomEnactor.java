@@ -5,8 +5,6 @@
  */
 package smartclass.enactor;
 
-import context.apps.demos.roomlight.LightWidget;
-import static context.apps.demos.roomlight.RoomEnactor.BRIGHTNESS_THRESHOLD;
 import context.arch.discoverer.ComponentDescription;
 import context.arch.discoverer.component.NonConstantAttributeElement;
 import context.arch.discoverer.query.AbstractQueryItem;
@@ -38,7 +36,7 @@ public class RoomEnactor extends Enactor {
                                 new AttributeComparison(AttributeComparison.Comparison.EQUAL)),
                         RuleQueryItem.instance(
                                 new NonConstantAttributeElement(AttributeNameValue.instance("brightness", 50)),
-                                new AttributeComparison(AttributeComparison.Comparison.GREATER))
+                                new AttributeComparison(AttributeComparison.Comparison.GREATER_EQUAL))
                 );
         
         EnactorReference er = new RoomEnactorReference(
@@ -80,10 +78,10 @@ public class RoomEnactor extends Enactor {
             WidgetData data = new WidgetData("LightWidget", timestamp);
             int light;
             if ("On".equals(outcomeValue)) {
-
-                //short brightness = inWidgetState.getAttributeValue("brightness");
+                System.out.println("on");
                 light = 1;
             } else {
+                System.out.println("off");
                 light = 0;
             }
 

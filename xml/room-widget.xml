@@ -4,5 +4,6 @@
 		<Attribute name="presence" type="int" />
 		<Attribute name="brightness" type="short" />
                 <Attribute name="temperature" type="short" />
+                <Attribute name="time" type="int" />
 	</Attributes>	
 </Widget>

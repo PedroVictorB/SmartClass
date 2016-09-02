@@ -5,18 +5,63 @@
  */
 package smartclass.ui;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Pedro
  */
 public class ClassRoomUI extends javax.swing.JFrame {
 
+    static ClassRoomUI classRoomUI = null;
+
     /**
      * Creates new form ClassRoomUI
      */
-    public ClassRoomUI() {
+    private ClassRoomUI() {
         initComponents();
         jLabel4.setVisible(false);
+    }
+
+    public static ClassRoomUI getInstance() {
+        if (classRoomUI != null) {
+            return classRoomUI;
+        }
+        return new ClassRoomUI();
+    }
+
+    public void lightOn() {
+//        ImageIcon icon = new ImageIcon("src/smartclass/ui/imagens/sala_luz_ligada.png");
+//        icon.getImage().flush();
+//        jLabel1.setIcon(icon);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/sala_luz_ligada.png"))); // NOI18N
+        
+//        File imgF = new File("src/smartclass/ui/imagens/sala_luz_ligada.png");
+//        try {
+//            System.out.println(
+//                    "About to load " + imgF.getCanonicalPath() 
+//                    + " exists=" + imgF.exists());
+//        } catch(IOException ioe) {
+//            ioe.printStackTrace();
+//            System.exit(0);
+//        }
+//        
+//        jLabel1.repaint();
+        System.out.println("aqui");
+    }
+
+    public void lightOff() {
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/sala_luz_desligada.png")));
+        jLabel1.repaint();
+        System.out.println("aqui2");
     }
 
     /**
@@ -47,7 +92,6 @@ public class ClassRoomUI extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/professor_1.png"))); // NOI18N
         jLabel4.setToolTipText("");
-        jLabel4.setMinimumSize(new java.awt.Dimension(200, 300));
         jLabel4.setName(""); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, -1, -1));
 
@@ -96,13 +140,6 @@ public class ClassRoomUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ClassRoomUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClassRoomUI().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

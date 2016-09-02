@@ -22,6 +22,10 @@ public class ClassUI extends javax.swing.JFrame {
     public ClassUI(final Widget roomWidget) {
         this.roomWidget = roomWidget;
         initComponents();
+        jRadioButton1.doClick();
+        jRadioButton6.doClick();
+        jSlider1.setValue(50);
+        jSlider2.setLabelTable(jSlider2.createStandardLabels(1));
     }
 
     /**
@@ -43,35 +47,75 @@ public class ClassUI extends javax.swing.JFrame {
         jRadioButton4 = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
-        jLabel3 = new javax.swing.JLabel();
+        jSlider2 = new javax.swing.JSlider();
+        jLabel4 = new javax.swing.JLabel();
         jRadioButton5 = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
         jRadioButton6 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("13:00 - 14:00");
+        jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton1MouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Horários");
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("14:00 - 15:00");
+        jRadioButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton2MouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("16:00 - 17:00");
+        jRadioButton3.setText("15:00 - 16:00");
+        jRadioButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton3MouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setText("15:00 - 16:00");
+        jRadioButton4.setText("16:00 - 17:00");
+        jRadioButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton4MouseClicked(evt);
+            }
+        });
 
-        jLabel2.setText("Luminosidade");
+        jLabel2.setText("Luminosidade (%)");
 
         jSlider1.setMajorTickSpacing(10);
         jSlider1.setMinorTickSpacing(2);
         jSlider1.setPaintLabels(true);
         jSlider1.setPaintTicks(true);
-        jSlider1.setSnapToTicks(true);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
 
-        jLabel3.setText("Presença");
+        jSlider2.setMaximum(30);
+        jSlider2.setMinimum(17);
+        jSlider2.setMinorTickSpacing(1);
+        jSlider2.setPaintLabels(true);
+        jSlider2.setPaintTicks(true);
+        jSlider2.setSnapToTicks(true);
+        jSlider2.setToolTipText("");
+        jSlider2.setValue(23);
+        jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider2StateChanged(evt);
+            }
+        });
+
+        jLabel4.setText("Temperatura (°C)");
 
         buttonGroup2.add(jRadioButton5);
         jRadioButton5.setText("Professor na sala");
@@ -80,6 +124,8 @@ public class ClassUI extends javax.swing.JFrame {
                 jRadioButton5MouseClicked(evt);
             }
         });
+
+        jLabel3.setText("Presença");
 
         buttonGroup2.add(jRadioButton6);
         jRadioButton6.setText("Professor fora da sala");
@@ -95,25 +141,35 @@ public class ClassUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSlider1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton3)
-                .addGap(0, 154, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(533, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap(484, Short.MAX_VALUE))))
+            .addComponent(jSlider2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jRadioButton5)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton6)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jRadioButton6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton4)))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,11 +182,15 @@ public class ClassUI extends javax.swing.JFrame {
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton4)
                     .addComponent(jRadioButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -153,7 +213,7 @@ public class ClassUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,17 +221,47 @@ public class ClassUI extends javax.swing.JFrame {
 
     private void jRadioButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton5MouseClicked
         if(jRadioButton5.isSelected()){
-            roomWidget.updateData("presence", (Integer)1);
+            roomWidget.updateData("presence", 1);
         }
-        System.out.println(1);
     }//GEN-LAST:event_jRadioButton5MouseClicked
 
     private void jRadioButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton6MouseClicked
-        if(jRadioButton5.isSelected()){
-            roomWidget.updateData("presence", (Integer)0);
+        if(jRadioButton6.isSelected()){
+            roomWidget.updateData("presence", 0);
         }
-        System.out.println(0);
     }//GEN-LAST:event_jRadioButton6MouseClicked
+
+    private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
+        if(jRadioButton1.isSelected()){
+            roomWidget.updateData("time", 1);
+        }
+    }//GEN-LAST:event_jRadioButton1MouseClicked
+
+    private void jRadioButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton2MouseClicked
+        if(jRadioButton2.isSelected()){
+            roomWidget.updateData("time", 2);
+        }
+    }//GEN-LAST:event_jRadioButton2MouseClicked
+
+    private void jRadioButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton4MouseClicked
+        if(jRadioButton4.isSelected()){
+            roomWidget.updateData("time", 4);
+        }
+    }//GEN-LAST:event_jRadioButton4MouseClicked
+
+    private void jRadioButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton3MouseClicked
+        if(jRadioButton3.isSelected()){
+            roomWidget.updateData("time", 3);
+        }
+    }//GEN-LAST:event_jRadioButton3MouseClicked
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        roomWidget.updateData("brightness", Short.parseShort(String.valueOf(jSlider1.getValue())));
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
+        roomWidget.updateData("temperature", jSlider2.getValue());
+    }//GEN-LAST:event_jSlider2StateChanged
 
     /**
      * @param args the command line arguments
@@ -207,6 +297,7 @@ public class ClassUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
@@ -215,5 +306,6 @@ public class ClassUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider jSlider2;
     // End of variables declaration//GEN-END:variables
 }
