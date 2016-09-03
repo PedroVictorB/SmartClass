@@ -5,9 +5,13 @@
  */
 package smartclass.ui;
 
+import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.Enumeration;
+import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
 import smartclass.Professor;
 
 /**
@@ -16,6 +20,13 @@ import smartclass.Professor;
  */
 public class ProfessorUI extends javax.swing.JFrame {
     
+    private File p1File = null;
+    private File p2File = null;
+    private File p3File = null;
+    private File p4File = null;
+    
+    private String curOpen = "";
+
     private static ProfessorUI professorUI = new ProfessorUI();
 
     /**
@@ -35,13 +46,13 @@ public class ProfessorUI extends javax.swing.JFrame {
         jSlider2.setValue(19);
         jSlider3.setValue(20);
         jSlider4.setValue(21);
-        
+
     }
-    
-    public static ProfessorUI getInstance(){
+
+    public static ProfessorUI getInstance() {
         return professorUI;
     }
-    
+
     private String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -51,50 +62,51 @@ public class ProfessorUI extends javax.swing.JFrame {
         }
         return null;
     }
-    
-    private int timeToInt(String time){
-        if(null != time)switch (time) {
-            case "13:00 - 14:00":
-                return 0;
-            case "14:00 - 15:00":
-                return 1;
-            case "15:00 - 16:00":
-                return 2;
-            case "16:00 - 17:00":
-                return 3;
-            default:
-                return -1;
+
+    private int timeToInt(String time) {
+        if (null != time) {
+            switch (time) {
+                case "13:00 - 14:00":
+                    return 0;
+                case "14:00 - 15:00":
+                    return 1;
+                case "15:00 - 16:00":
+                    return 2;
+                case "16:00 - 17:00":
+                    return 3;
+                default:
+                    return -1;
+            }
         }
         return -1;
     }
-    
-    public Professor getProfessorAttributes(String name){
-        if(null != name)switch (name) {
-            case "p1":
-                return new Professor("p1", (short)jSlider1.getValue(), timeToInt(getSelectedButtonText(buttonGroup1)));
-            case "p2":
-                return new Professor("p2", (short)jSlider2.getValue(), timeToInt(getSelectedButtonText(buttonGroup2)));
-            case "p3":
-                return new Professor("p3", (short)jSlider3.getValue(), timeToInt(getSelectedButtonText(buttonGroup3)));
-            case "p4":
-                return new Professor("p4", (short)jSlider4.getValue(), timeToInt(getSelectedButtonText(buttonGroup4)));
-            default:
-                return null;
+
+    public Professor getProfessorAttributes(String name) {
+        if (null != name) {
+            switch (name) {
+                case "p1":
+                    return new Professor("p1", (short) jSlider1.getValue(), timeToInt(getSelectedButtonText(buttonGroup1)), p1File);
+                case "p2":
+                    return new Professor("p2", (short) jSlider2.getValue(), timeToInt(getSelectedButtonText(buttonGroup2)), p2File);
+                case "p3":
+                    return new Professor("p3", (short) jSlider3.getValue(), timeToInt(getSelectedButtonText(buttonGroup3)), p3File);
+                case "p4":
+                    return new Professor("p4", (short) jSlider4.getValue(), timeToInt(getSelectedButtonText(buttonGroup4)), p4File);
+                default:
+                    return null;
+            }
         }
         return null;
     }
-    
-    public String getProfessorOfTheTime(int time){
-        if(timeToInt(getSelectedButtonText(buttonGroup1)) == time){
+
+    public String getProfessorOfTheTime(int time) {
+        if (timeToInt(getSelectedButtonText(buttonGroup1)) == time) {
             return "p1";
-        }
-        else if(timeToInt(getSelectedButtonText(buttonGroup2)) == time){
+        } else if (timeToInt(getSelectedButtonText(buttonGroup2)) == time) {
             return "p2";
-        }
-        else if(timeToInt(getSelectedButtonText(buttonGroup3)) == time){
+        } else if (timeToInt(getSelectedButtonText(buttonGroup3)) == time) {
             return "p3";
-        }
-        else if(timeToInt(getSelectedButtonText(buttonGroup4)) == time){
+        } else if (timeToInt(getSelectedButtonText(buttonGroup4)) == time) {
             return "p4";
         }
         return "";
@@ -185,11 +197,6 @@ public class ProfessorUI extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("15:00 - 16:00");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("14:00 - 15:00");
@@ -200,6 +207,11 @@ public class ProfessorUI extends javax.swing.JFrame {
         jLabel10.setText("Slides");
 
         jButton1.setText("Selecione o slide");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jLabel11.setText(" ");
 
@@ -285,16 +297,16 @@ public class ProfessorUI extends javax.swing.JFrame {
         jLabel12.setText(" ");
 
         jButton2.setText("Selecione o slide");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jLabel13.setText("Slides");
 
         buttonGroup2.add(jRadioButton5);
         jRadioButton5.setText("15:00 - 16:00");
-        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton5ActionPerformed(evt);
-            }
-        });
 
         buttonGroup2.add(jRadioButton6);
         jRadioButton6.setText("16:00 - 17:00");
@@ -385,16 +397,16 @@ public class ProfessorUI extends javax.swing.JFrame {
         jLabel15.setText(" ");
 
         jButton3.setText("Selecione o slide");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jLabel16.setText("Slides");
 
         buttonGroup3.add(jRadioButton9);
         jRadioButton9.setText("15:00 - 16:00");
-        jRadioButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton9ActionPerformed(evt);
-            }
-        });
 
         buttonGroup3.add(jRadioButton10);
         jRadioButton10.setText("16:00 - 17:00");
@@ -488,16 +500,16 @@ public class ProfessorUI extends javax.swing.JFrame {
         jLabel18.setText(" ");
 
         jButton4.setText("Selecione o slide");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         jLabel19.setText("Slides");
 
         buttonGroup4.add(jRadioButton13);
         jRadioButton13.setText("15:00 - 16:00");
-        jRadioButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton13ActionPerformed(evt);
-            }
-        });
 
         buttonGroup4.add(jRadioButton14);
         jRadioButton14.setText("16:00 - 17:00");
@@ -507,11 +519,6 @@ public class ProfessorUI extends javax.swing.JFrame {
 
         buttonGroup4.add(jRadioButton16);
         jRadioButton16.setText("13:00 - 14:00");
-        jRadioButton16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton16ActionPerformed(evt);
-            }
-        });
 
         jLabel20.setText("Horário");
 
@@ -611,25 +618,53 @@ public class ProfessorUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(ProfessorUI.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            p1File = file;
+            System.out.println("Arquivo "+file.getName()+" escolhido.");
+        } else {
+            System.out.println("Cancelado.");
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton5ActionPerformed
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(ProfessorUI.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            p2File = file;
+            System.out.println("Arquivo "+file.getName()+" escolhido.");
+        } else {
+            System.out.println("Cancelado.");
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
 
-    private void jRadioButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton9ActionPerformed
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(ProfessorUI.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            p3File = file;
+            System.out.println("Arquivo "+file.getName()+" escolhido.");
+        } else {
+            System.out.println("Cancelado.");
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
 
-    private void jRadioButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton13ActionPerformed
-
-    private void jRadioButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton16ActionPerformed
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(ProfessorUI.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            p4File = file;
+            System.out.println("Arquivo "+file.getName()+" escolhido.");
+        } else {
+            System.out.println("Cancelado.");
+        }
+    }//GEN-LAST:event_jButton4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -713,4 +748,18 @@ public class ProfessorUI extends javax.swing.JFrame {
     private javax.swing.JSlider jSlider3;
     private javax.swing.JSlider jSlider4;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the curOpen
+     */
+    public String getCurOpen() {
+        return curOpen;
+    }
+
+    /**
+     * @param curOpen the curOpen to set
+     */
+    public void setCurOpen(String curOpen) {
+        this.curOpen = curOpen;
+    }
 }

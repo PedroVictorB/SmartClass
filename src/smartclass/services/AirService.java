@@ -38,11 +38,9 @@ public class AirService extends Service{
         int status = si.getInput().getAttributeValue("status");
         int temp = si.getInput().getAttributeValue("temperature");
         int time = si.getInput().getAttributeValue("time");
-        System.out.println("Time: "+time);
         if (status == 1) {
             ProfessorUI professorUI = ProfessorUI.getInstance();
             Professor p = professorUI.getProfessorAttributes(professorUI.getProfessorOfTheTime(time));
-            System.out.println(p.getName()+" "+p.getTemperature()+" "+p.getTime());
             ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
             classRoomUI.setVisible(true);
             if(temp < p.getTemperature()){

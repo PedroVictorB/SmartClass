@@ -131,6 +131,7 @@ public class RoomEnactor extends Enactor {
                     new Attributes() {
                 {
                     addAttribute("status", Integer.class);
+                    addAttribute("time", Integer.class);
                 }
             }));
 
@@ -147,6 +148,7 @@ public class RoomEnactor extends Enactor {
                     new Attributes() {
                 {
                     addAttribute("status", Integer.class);
+                    addAttribute("time", Integer.class);
                 }
             }));
 
@@ -275,6 +277,7 @@ public class RoomEnactor extends Enactor {
             }
 
             data.setAttributeValue("status", status);
+            data.setAttributeValue("time", inWidgetState.getAttributeValue("time"));
             outAtts.putAll(data.toAttributes());
 
             return outAtts;

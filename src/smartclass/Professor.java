@@ -5,6 +5,8 @@
  */
 package smartclass;
 
+import java.io.File;
+
 /**
  *
  * @author Pedro
@@ -13,11 +15,13 @@ public class Professor {
     private String name;
     private Short temperature;
     private int time;
+    private File slides;
     
-    public Professor(String name, Short temperature, int time){
+    public Professor(String name, Short temperature, int time, File slides){
         this.name = name;
         this.temperature = temperature;
         this.time = time;
+        this.slides = slides;
     }
 
     /**
@@ -60,6 +64,20 @@ public class Professor {
      */
     public void setTime(int time) {
         this.time = time;
+    }
+
+    /**
+     * @return the slides
+     */
+    public File getSlides() {
+        return slides;
+    }
+
+    /**
+     * @param slides the slides to set
+     */
+    public void setSlides(File slides) {
+        this.slides = slides;
     }
     
 }

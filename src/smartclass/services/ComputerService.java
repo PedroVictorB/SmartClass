@@ -11,13 +11,19 @@ import context.arch.service.helper.FunctionDescription;
 import context.arch.service.helper.FunctionDescriptions;
 import context.arch.service.helper.ServiceInput;
 import context.arch.widget.Widget;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import smartclass.Professor;
 import smartclass.ui.ClassRoomUI;
+import smartclass.ui.ProfessorUI;
 
 /**
  *
  * @author Pedro
  */
-public class ComputerService extends Service{
+public class ComputerService extends Service {
 
     public ComputerService(final Widget widget) {
         super(widget, "ComputerService",
@@ -34,7 +40,23 @@ public class ComputerService extends Service{
     @Override
     public DataObject execute(ServiceInput si) {
         int status = si.getInput().getAttributeValue("status");
+        int time = si.getInput().getAttributeValue("time");
         if (status == 1) {
+            ProfessorUI professorUI = ProfessorUI.getInstance();
+            Professor p = professorUI.getProfessorAttributes(professorUI.getProfessorOfTheTime(time));
+            Desktop desktop = Desktop.getDesktop();
+            if (p.getSlides() != null && p.getSlides().exists()) {
+                try {
+                    if(professorUI.getCurOpen().equals("") || !professorUI.getCurOpen().equals(p.getSlides().getName())){
+                        professorUI.setCurOpen(p.getSlides().getName());
+                        desktop.open(p.getSlides());
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Ocorreu um erro ao abrir os slides.");
+                }
+            } else {
+                System.out.println("Arquivo não existe ou não foi escolhido.");
+            }
             ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
             classRoomUI.setVisible(true);
             classRoomUI.computerOn();
@@ -45,5 +67,5 @@ public class ComputerService extends Service{
         }
         return new DataObject(); // no particular info to return
     }
-    
+
 }
