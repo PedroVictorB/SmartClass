@@ -5,10 +5,45 @@
  */
 package smartclass.services;
 
+import context.arch.comm.DataObject;
+import context.arch.service.Service;
+import context.arch.service.helper.FunctionDescription;
+import context.arch.service.helper.FunctionDescriptions;
+import context.arch.service.helper.ServiceInput;
+import context.arch.widget.Widget;
+import smartclass.ui.ClassRoomUI;
+
 /**
  *
  * @author Pedro
  */
-public class ComputerService {
+public class ComputerService extends Service{
+
+    public ComputerService(final Widget widget) {
+        super(widget, "ComputerService",
+                new FunctionDescriptions() {
+            {
+                add(new FunctionDescription(
+                        "computerControl",
+                        "Sets the computer on or off",
+                        widget.getNonConstantAttributes()));
+            }
+        });
+    }
+
+    @Override
+    public DataObject execute(ServiceInput si) {
+        int status = si.getInput().getAttributeValue("status");
+        if (status == 1) {
+            ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
+            classRoomUI.setVisible(true);
+            classRoomUI.computerOn();
+        } else {
+            ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
+            classRoomUI.setVisible(true);
+            classRoomUI.computerOff();
+        }
+        return new DataObject(); // no particular info to return
+    }
     
 }

@@ -34,7 +34,6 @@ public class ProjectorService extends Service{
     @Override
     public DataObject execute(ServiceInput si) {
         int status = si.getInput().getAttributeValue("status");
-        System.out.println("Projector Status: "+status);
         if (status == 1) {
             ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
             classRoomUI.setVisible(true);

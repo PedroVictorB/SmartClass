@@ -44,6 +44,16 @@ public class ClassRoomUI extends javax.swing.JFrame {
         System.out.println("projectorOff");
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/projetor_desligado.png")));
     }
+    
+    public void computerOn() {
+        System.out.println("computerOn");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/computador_ligado.png")));
+    }
+
+    public void computerOff() {
+        System.out.println("computerOff");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/computador_desligado.png")));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -113,6 +113,47 @@ public class RoomEnactor extends Enactor {
 
             //adiciona o enactor
             addReference(er);
+        } else if ("ComputerWidget".equals(type)) {
+            //Projetor
+            //Cria uma query
+            AbstractQueryItem<?, ?> offProjector
+                    = new ORQueryItem(
+                            RuleQueryItem.instance(
+                                    new NonConstantAttributeElement(AttributeNameValue.instance("presence", 0)),
+                                    new AttributeComparison(AttributeComparison.Comparison.EQUAL))
+                    );
+
+            //cria a referencia
+            EnactorReference er = new RoomEnactorComputerReference(
+                    offProjector,
+                    "ComputerOff");
+
+            //adiciona o serviço
+            er.addServiceInput(new ServiceInput("ComputerService", "computerControl",
+                    new Attributes() {
+                {
+                    addAttribute("status", Integer.class);
+                }
+            }));
+
+            //adiciona o enactor
+            addReference(er);
+
+            //Cria uma query
+            er = new RoomEnactorComputerReference(
+                    new ElseQueryItem(offProjector),
+                    "ComputerOn");
+
+            //adiciona o serviço
+            er.addServiceInput(new ServiceInput("ComputerService", "computerControl",
+                    new Attributes() {
+                {
+                    addAttribute("status", Integer.class);
+                }
+            }));
+
+            //adiciona o enactor
+            addReference(er);
         }
 
         start();
@@ -161,6 +202,31 @@ public class RoomEnactor extends Enactor {
             WidgetData data = new WidgetData("ProjectorWidget", timestamp);
             int status;
             if ("ProjectorOn".equals(outcomeValue)) {
+                status = 1;
+            } else {
+                status = 0;
+            }
+
+            data.setAttributeValue("status", status);
+            outAtts.putAll(data.toAttributes());
+
+            return outAtts;
+        }
+
+    }
+    
+    private class RoomEnactorComputerReference extends EnactorReference {
+
+        public RoomEnactorComputerReference(AbstractQueryItem<?, ?> conditionQuery, String outcomeValue) {
+            super(RoomEnactor.this, conditionQuery, outcomeValue);
+        }
+
+        @Override
+        protected Attributes conditionSatisfied(ComponentDescription inWidgetState, Attributes outAtts) {
+            long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
+            WidgetData data = new WidgetData("ComputerWidget", timestamp);
+            int status;
+            if ("ComputerOn".equals(outcomeValue)) {
                 status = 1;
             } else {
                 status = 0;
