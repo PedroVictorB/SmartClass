@@ -54,6 +54,16 @@ public class ClassRoomUI extends javax.swing.JFrame {
         System.out.println("computerOff");
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/computador_desligado.png")));
     }
+    
+    public void airOn(){
+        System.out.println("airOn");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/ar_ligado.png")));
+    }
+    
+    public void airOff(){
+        System.out.println("airOff");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/ar_desligado.png")));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,6 +78,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,12 +90,16 @@ public class ClassRoomUI extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/projetor_desligado.png"))); // NOI18N
         jLabel3.setText("jLabel3");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, -50, 250, 220));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, -50, 250, 220));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/professor_1.png"))); // NOI18N
         jLabel4.setToolTipText("");
         jLabel4.setName(""); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/ar_desligado.png"))); // NOI18N
+        jLabel5.setToolTipText("");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/sala_luz_desligada.png"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(1600, 1163));
@@ -138,6 +153,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

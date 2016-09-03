@@ -25,6 +25,7 @@ public class ClassUI extends javax.swing.JFrame {
         jRadioButton1.doClick();
         jRadioButton6.doClick();
         jSlider1.setValue(50);
+        jSlider1StateChanged(null);
         jSlider2.setLabelTable(jSlider2.createStandardLabels(1));
     }
 
