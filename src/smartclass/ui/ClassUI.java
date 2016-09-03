@@ -256,7 +256,7 @@ public class ClassUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton3MouseClicked
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        roomWidget.updateData("brightness", Short.parseShort(String.valueOf(jSlider1.getValue())));
+        roomWidget.updateData("brightness", (short)jSlider1.getValue());
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged

@@ -26,11 +26,23 @@ public class ClassRoomUI extends javax.swing.JFrame {
     }
 
     public void lightOn() {
+        System.out.println("lightOn");
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/sala_luz_ligada.png")));
     }
 
     public void lightOff() {
+        System.out.println("lightOff");
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/sala_luz_desligada.png")));
+    }
+    
+    public void projectorOn() {
+        System.out.println("projectorOn");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/projetor_ligado.png")));
+    }
+
+    public void projectorOff() {
+        System.out.println("projectorOff");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/projetor_desligado.png")));
     }
 
     /**

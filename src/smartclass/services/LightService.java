@@ -35,6 +35,7 @@ public class LightService extends Service {
     @Override
     public DataObject execute(ServiceInput si) {
         int light = si.getInput().getAttributeValue("light");
+        System.out.println("Light: "+light);
         if (light == 1) {
             ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
             classRoomUI.setVisible(true);

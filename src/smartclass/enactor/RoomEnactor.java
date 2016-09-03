@@ -26,49 +26,102 @@ import context.arch.widget.Widget.WidgetData;
  */
 public class RoomEnactor extends Enactor {
 
-    public RoomEnactor(AbstractQueryItem<?, ?> inWidgetSubscriptionQuery, AbstractQueryItem<?, ?> outWidgetSubscriptionQuery, String outcomeName, String shortId) {
+    public RoomEnactor(AbstractQueryItem<?, ?> inWidgetSubscriptionQuery, AbstractQueryItem<?, ?> outWidgetSubscriptionQuery, String outcomeName, String shortId, String type) {
         super(inWidgetSubscriptionQuery, outWidgetSubscriptionQuery, outcomeName, shortId);
 
-        AbstractQueryItem<?, ?> offQI
-                = new ORQueryItem(
-                        RuleQueryItem.instance(
-                                new NonConstantAttributeElement(AttributeNameValue.instance("presence", 0)),
-                                new AttributeComparison(AttributeComparison.Comparison.EQUAL)),
-                        RuleQueryItem.instance(
-                                new NonConstantAttributeElement(AttributeNameValue.instance("brightness", 50)),
-                                new AttributeComparison(AttributeComparison.Comparison.GREATER_EQUAL))
-                );
-        
-        EnactorReference er = new RoomEnactorReference(
-                offQI,
-                "Off");
-        er.addServiceInput(new ServiceInput("LightService", "lightControl",
-                new Attributes() {
-            {
-                addAttribute("light", Integer.class);
-            }
-        }));
-        addReference(er);
+        if ("LightWidget".equals(type)) {
+            //Cria uma query
+            AbstractQueryItem<?, ?> offQI
+                    = new ORQueryItem(
+                            RuleQueryItem.instance(
+                                    new NonConstantAttributeElement(AttributeNameValue.instance("presence", 0)),
+                                    new AttributeComparison(AttributeComparison.Comparison.EQUAL)),
+                            RuleQueryItem.instance(
+                                    new NonConstantAttributeElement(AttributeNameValue.instance("brightness", 50)),
+                                    new AttributeComparison(AttributeComparison.Comparison.GREATER_EQUAL))
+                    );
 
-        // light on, and brightness dependent
-        er = new RoomEnactorReference(
-                new ElseQueryItem(offQI),
-                "On");
-        er.addServiceInput(new ServiceInput("LightService", "lightControl",
-                new Attributes() {
-            {
-                addAttribute("light", Integer.class);
-            }
-        }));
-        addReference(er);
+            //cria a referencia
+            EnactorReference er = new RoomEnactorLightReference(
+                    offQI,
+                    "LightOff");
+
+            //adiciona o serviço
+            er.addServiceInput(new ServiceInput("LightService", "lightControl",
+                    new Attributes() {
+                {
+                    addAttribute("light", Integer.class);
+                }
+            }));
+
+            //adiciona o enactor
+            addReference(er);
+
+            //Cria uma query
+            er = new RoomEnactorLightReference(
+                    new ElseQueryItem(offQI),
+                    "LightOn");
+
+            //adiciona o serviço
+            er.addServiceInput(new ServiceInput("LightService", "lightControl",
+                    new Attributes() {
+                {
+                    addAttribute("light", Integer.class);
+                }
+            }));
+
+            //adiciona o enactor
+            addReference(er);
+        } else if ("ProjectorWidget".equals(type)) {
+            //Projetor
+            //Cria uma query
+            AbstractQueryItem<?, ?> offProjector
+                    = new ORQueryItem(
+                            RuleQueryItem.instance(
+                                    new NonConstantAttributeElement(AttributeNameValue.instance("presence", 0)),
+                                    new AttributeComparison(AttributeComparison.Comparison.EQUAL))
+                    );
+
+            //cria a referencia
+            EnactorReference er = new RoomEnactorProjectorReference(
+                    offProjector,
+                    "ProjectorOff");
+
+            //adiciona o serviço
+            er.addServiceInput(new ServiceInput("ProjectorService", "projectorControl",
+                    new Attributes() {
+                {
+                    addAttribute("status", Integer.class);
+                }
+            }));
+
+            //adiciona o enactor
+            addReference(er);
+
+            //Cria uma query
+            er = new RoomEnactorProjectorReference(
+                    new ElseQueryItem(offProjector),
+                    "ProjectorOn");
+
+            //adiciona o serviço
+            er.addServiceInput(new ServiceInput("ProjectorService", "projectorControl",
+                    new Attributes() {
+                {
+                    addAttribute("status", Integer.class);
+                }
+            }));
+
+            //adiciona o enactor
+            addReference(er);
+        }
 
         start();
 
     }
-    
-    private class RoomEnactorReference extends EnactorReference {
 
-        public RoomEnactorReference(AbstractQueryItem<?, ?> conditionQuery, String outcomeValue) {
+    private class RoomEnactorLightReference extends EnactorReference {
+
+        public RoomEnactorLightReference(AbstractQueryItem<?, ?> conditionQuery, String outcomeValue) {
             super(RoomEnactor.this, conditionQuery, outcomeValue);
         }
 
@@ -77,17 +130,45 @@ public class RoomEnactor extends Enactor {
             long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
             WidgetData data = new WidgetData("LightWidget", timestamp);
             int light;
-            if ("On".equals(outcomeValue)) {
-                System.out.println("on");
-                light = 1;
+            if ("LightOn".equals(outcomeValue)) {
+                short brightness = inWidgetState.getAttributeValue("brightness");
+                if(brightness >= 50){
+                    light = 0;
+                }else{
+                    light = 1;
+                }
             } else {
-                System.out.println("off");
                 light = 0;
             }
 
             data.setAttributeValue("light", light);
             outAtts.putAll(data.toAttributes());
-            
+
+            return outAtts;
+        }
+
+    }
+
+    private class RoomEnactorProjectorReference extends EnactorReference {
+
+        public RoomEnactorProjectorReference(AbstractQueryItem<?, ?> conditionQuery, String outcomeValue) {
+            super(RoomEnactor.this, conditionQuery, outcomeValue);
+        }
+
+        @Override
+        protected Attributes conditionSatisfied(ComponentDescription inWidgetState, Attributes outAtts) {
+            long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
+            WidgetData data = new WidgetData("ProjectorWidget", timestamp);
+            int status;
+            if ("ProjectorOn".equals(outcomeValue)) {
+                status = 1;
+            } else {
+                status = 0;
+            }
+
+            data.setAttributeValue("status", status);
+            outAtts.putAll(data.toAttributes());
+
             return outAtts;
         }
 
