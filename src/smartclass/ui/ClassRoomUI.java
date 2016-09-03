@@ -55,13 +55,15 @@ public class ClassRoomUI extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/computador_desligado.png")));
     }
     
-    public void airOn(){
-        System.out.println("airOn");
+    public void airOn(int temp){
+        System.out.println("airOn - "+temp+"°C");
+        jLabel6.setText(temp+"");
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/ar_ligado.png")));
     }
     
     public void airOff(){
         System.out.println("airOff");
+        jLabel6.setText("");
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/ar_desligado.png")));
     }
 
@@ -78,6 +80,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -96,6 +99,12 @@ public class ClassRoomUI extends javax.swing.JFrame {
         jLabel4.setToolTipText("");
         jLabel4.setName(""); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel6.setText("23");
+        jLabel6.setToolTipText("");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/ar_desligado.png"))); // NOI18N
         jLabel5.setToolTipText("");
@@ -154,6 +163,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

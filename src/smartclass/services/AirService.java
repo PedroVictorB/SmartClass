@@ -11,7 +11,9 @@ import context.arch.service.helper.FunctionDescription;
 import context.arch.service.helper.FunctionDescriptions;
 import context.arch.service.helper.ServiceInput;
 import context.arch.widget.Widget;
+import smartclass.Professor;
 import smartclass.ui.ClassRoomUI;
+import smartclass.ui.ProfessorUI;
 
 /**
  *
@@ -34,10 +36,20 @@ public class AirService extends Service{
     @Override
     public DataObject execute(ServiceInput si) {
         int status = si.getInput().getAttributeValue("status");
+        int temp = si.getInput().getAttributeValue("temperature");
+        int time = si.getInput().getAttributeValue("time");
+        System.out.println("Time: "+time);
         if (status == 1) {
+            ProfessorUI professorUI = ProfessorUI.getInstance();
+            Professor p = professorUI.getProfessorAttributes(professorUI.getProfessorOfTheTime(time));
+            System.out.println(p.getName()+" "+p.getTemperature()+" "+p.getTime());
             ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
             classRoomUI.setVisible(true);
-            classRoomUI.airOn();
+            if(temp < p.getTemperature()){
+                classRoomUI.airOff();
+            }else{
+                classRoomUI.airOn(p.getTemperature());
+            }
         } else {
             ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
             classRoomUI.setVisible(true);

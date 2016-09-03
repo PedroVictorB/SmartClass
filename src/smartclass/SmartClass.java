@@ -19,6 +19,7 @@ import smartclass.services.LightService;
 import smartclass.services.ProjectorService;
 import smartclass.ui.ClassRoomUI;
 import smartclass.ui.ClassUI;
+import smartclass.ui.ProfessorUI;
 
 /**
  *
@@ -40,6 +41,10 @@ public class SmartClass {
         Discoverer.start();
 
         Widget roomWidget = WidgetXmlParser.createWidget("xml/room-widget.xml");
+        
+        ClassUI classSensors = new ClassUI(roomWidget);
+        classSensors.setVisible(true);
+        
         Widget projectorWidget = WidgetXmlParser.createWidget("xml/projector-widget.xml");
         Widget computerWidget = WidgetXmlParser.createWidget("xml/computer-widget.xml");
         Widget lightWidget = WidgetXmlParser.createWidget("xml/light-widget.xml");
@@ -68,8 +73,11 @@ public class SmartClass {
         RoomEnactor roomEnactorComputer = new RoomEnactor(roomWidgetQuery, computerWidgetQuery, "status", "", "ComputerWidget");
         RoomEnactor roomEnactorAir = new RoomEnactor(roomWidgetQuery, airWidgetQuery, "status", "", "AirWidget");
         
-        ClassUI classSensors = new ClassUI(roomWidget);
-        classSensors.setVisible(true);
+        ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
+        classRoomUI.setVisible(true);
+        
+        ProfessorUI professorUI = ProfessorUI.getInstance();
+        professorUI.setVisible(true);
 
     }
 

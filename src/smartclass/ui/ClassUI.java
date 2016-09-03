@@ -22,11 +22,15 @@ public class ClassUI extends javax.swing.JFrame {
     public ClassUI(final Widget roomWidget) {
         this.roomWidget = roomWidget;
         initComponents();
+        jRadioButton1MouseClicked(null);
         jRadioButton1.doClick();
+        jRadioButton6MouseClicked(null);
         jRadioButton6.doClick();
         jSlider1.setValue(50);
         jSlider1StateChanged(null);
         jSlider2.setLabelTable(jSlider2.createStandardLabels(1));
+        jSlider2.setValue(23);
+        jSlider2StateChanged(null);
     }
 
     /**
@@ -234,25 +238,25 @@ public class ClassUI extends javax.swing.JFrame {
 
     private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
         if(jRadioButton1.isSelected()){
-            roomWidget.updateData("time", 1);
+            roomWidget.updateData("time", 0);
         }
     }//GEN-LAST:event_jRadioButton1MouseClicked
 
     private void jRadioButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton2MouseClicked
         if(jRadioButton2.isSelected()){
-            roomWidget.updateData("time", 2);
+            roomWidget.updateData("time", 1);
         }
     }//GEN-LAST:event_jRadioButton2MouseClicked
 
     private void jRadioButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton4MouseClicked
         if(jRadioButton4.isSelected()){
-            roomWidget.updateData("time", 4);
+            roomWidget.updateData("time", 3);
         }
     }//GEN-LAST:event_jRadioButton4MouseClicked
 
     private void jRadioButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton3MouseClicked
         if(jRadioButton3.isSelected()){
-            roomWidget.updateData("time", 3);
+            roomWidget.updateData("time", 2);
         }
     }//GEN-LAST:event_jRadioButton3MouseClicked
 

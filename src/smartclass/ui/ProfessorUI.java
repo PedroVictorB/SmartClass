@@ -5,18 +5,99 @@
  */
 package smartclass.ui;
 
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import smartclass.Professor;
+
 /**
  *
  * @author Pedro
  */
 public class ProfessorUI extends javax.swing.JFrame {
+    
+    private static ProfessorUI professorUI = new ProfessorUI();
 
     /**
      * Creates new form ProfessorUI
      */
-    public ProfessorUI() {
+    private ProfessorUI() {
         initComponents();
         jSlider1.setLabelTable(jSlider1.createStandardLabels(2));
+        jSlider2.setLabelTable(jSlider1.createStandardLabels(2));
+        jSlider3.setLabelTable(jSlider1.createStandardLabels(2));
+        jSlider4.setLabelTable(jSlider1.createStandardLabels(2));
+        jRadioButton1.doClick();
+        jRadioButton7.doClick();
+        jRadioButton9.doClick();
+        jRadioButton14.doClick();
+        jSlider1.setValue(18);
+        jSlider2.setValue(19);
+        jSlider3.setValue(20);
+        jSlider4.setValue(21);
+        
+    }
+    
+    public static ProfessorUI getInstance(){
+        return professorUI;
+    }
+    
+    private String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+        return null;
+    }
+    
+    private int timeToInt(String time){
+        if(null != time)switch (time) {
+            case "13:00 - 14:00":
+                return 0;
+            case "14:00 - 15:00":
+                return 1;
+            case "15:00 - 16:00":
+                return 2;
+            case "16:00 - 17:00":
+                return 3;
+            default:
+                return -1;
+        }
+        return -1;
+    }
+    
+    public Professor getProfessorAttributes(String name){
+        if(null != name)switch (name) {
+            case "p1":
+                return new Professor("p1", (short)jSlider1.getValue(), timeToInt(getSelectedButtonText(buttonGroup1)));
+            case "p2":
+                return new Professor("p2", (short)jSlider2.getValue(), timeToInt(getSelectedButtonText(buttonGroup2)));
+            case "p3":
+                return new Professor("p3", (short)jSlider3.getValue(), timeToInt(getSelectedButtonText(buttonGroup3)));
+            case "p4":
+                return new Professor("p4", (short)jSlider4.getValue(), timeToInt(getSelectedButtonText(buttonGroup4)));
+            default:
+                return null;
+        }
+        return null;
+    }
+    
+    public String getProfessorOfTheTime(int time){
+        if(timeToInt(getSelectedButtonText(buttonGroup1)) == time){
+            return "p1";
+        }
+        else if(timeToInt(getSelectedButtonText(buttonGroup2)) == time){
+            return "p2";
+        }
+        else if(timeToInt(getSelectedButtonText(buttonGroup3)) == time){
+            return "p3";
+        }
+        else if(timeToInt(getSelectedButtonText(buttonGroup4)) == time){
+            return "p4";
+        }
+        return "";
     }
 
     /**
@@ -576,13 +657,6 @@ public class ProfessorUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ProfessorUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProfessorUI().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

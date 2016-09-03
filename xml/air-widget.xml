@@ -2,5 +2,7 @@
 <Widget xmlns="http://www.contexttoolkit.org/ctk" name="AirWidget">
 	<Attributes>
 		<Attribute name="status" type="int" />
+                <Attribute name="temperature" type="int" />
+                <Attribute name="time" type="int" />
 	</Attributes>
 </Widget>

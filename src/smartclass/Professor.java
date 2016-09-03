@@ -12,10 +12,12 @@ package smartclass;
 public class Professor {
     private String name;
     private Short temperature;
+    private int time;
     
-    public Professor(String name, Short temperature){
+    public Professor(String name, Short temperature, int time){
         this.name = name;
         this.temperature = temperature;
+        this.time = time;
     }
 
     /**
@@ -44,6 +46,20 @@ public class Professor {
      */
     public void setTemperature(Short temperature) {
         this.temperature = temperature;
+    }
+
+    /**
+     * @return the time
+     */
+    public int getTime() {
+        return time;
+    }
+
+    /**
+     * @param time the time to set
+     */
+    public void setTime(int time) {
+        this.time = time;
     }
     
 }

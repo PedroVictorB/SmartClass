@@ -73,7 +73,6 @@ public class RoomEnactor extends Enactor {
             //adiciona o enactor
             addReference(er);
         } else if ("ProjectorWidget".equals(type)) {
-            //Projetor
             //Cria uma query
             AbstractQueryItem<?, ?> offProjector
                     = new ORQueryItem(
@@ -114,7 +113,6 @@ public class RoomEnactor extends Enactor {
             //adiciona o enactor
             addReference(er);
         } else if ("ComputerWidget".equals(type)) {
-            //Projetor
             //Cria uma query
             AbstractQueryItem<?, ?> offProjector
                     = new ORQueryItem(
@@ -155,7 +153,6 @@ public class RoomEnactor extends Enactor {
             //adiciona o enactor
             addReference(er);
         } else if ("AirWidget".equals(type)) {
-            //Projetor
             //Cria uma query
             AbstractQueryItem<?, ?> offProjector
                     = new ORQueryItem(
@@ -174,6 +171,8 @@ public class RoomEnactor extends Enactor {
                     new Attributes() {
                 {
                     addAttribute("status", Integer.class);
+                    addAttribute("temperature", Integer.class);
+                    addAttribute("time", Integer.class);
                 }
             }));
 
@@ -190,6 +189,8 @@ public class RoomEnactor extends Enactor {
                     new Attributes() {
                 {
                     addAttribute("status", Integer.class);
+                    addAttribute("temperature", Integer.class);
+                    addAttribute("time", Integer.class);
                 }
             }));
 
@@ -299,6 +300,8 @@ public class RoomEnactor extends Enactor {
             }
 
             data.setAttributeValue("status", status);
+            data.setAttributeValue("temperature", inWidgetState.getAttributeValue("temperature"));
+            data.setAttributeValue("time", inWidgetState.getAttributeValue("time"));
             outAtts.putAll(data.toAttributes());
 
             return outAtts;
