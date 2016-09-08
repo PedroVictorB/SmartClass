@@ -11,24 +11,21 @@ import context.arch.service.helper.FunctionDescription;
 import context.arch.service.helper.FunctionDescriptions;
 import context.arch.service.helper.ServiceInput;
 import context.arch.widget.Widget;
-import javax.swing.SwingUtilities;
-import smartclass.Professor;
 import smartclass.ui.ClassRoomUI;
-import smartclass.ui.ProfessorUI;
 
 /**
  *
  * @author Pedro
  */
-public class LightService extends Service {
-
-    public LightService(final Widget widget) {
-        super(widget, "LightService",
+public class ProfessorService extends Service{
+    
+    public ProfessorService(final Widget widget) {
+        super(widget, "ProfessorService",
                 new FunctionDescriptions() {
             {
                 add(new FunctionDescription(
-                        "lightControl",
-                        "Sets the light on or off",
+                        "professorControl",
+                        "Represents de professor",
                         widget.getNonConstantAttributes()));
             }
         });
@@ -36,17 +33,14 @@ public class LightService extends Service {
 
     @Override
     public DataObject execute(ServiceInput si) {
-        int light = si.getInput().getAttributeValue("light");
-        if (light == 1) {
-            ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
-            classRoomUI.setVisible(true);
-            classRoomUI.lightOn();
-        } else {
-            ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
-            classRoomUI.setVisible(true);
-            classRoomUI.lightOff();
-        }
+        int temp = si.getInput().getAttributeValue("temperature");
+        int slides = si.getInput().getAttributeValue("slides");
+        int time = si.getInput().getAttributeValue("time");
+        ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
+        classRoomUI.setVisible(true);
+        System.out.println(temp+" "+slides+" "+time);
+        classRoomUI.airTemp(temp);
         return new DataObject(); // no particular info to return
     }
-
+    
 }

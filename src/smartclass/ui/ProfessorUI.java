@@ -5,6 +5,8 @@
  */
 package smartclass.ui;
 
+import context.arch.storage.Attributes;
+import context.arch.widget.Widget;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Enumeration;
@@ -24,6 +26,8 @@ public class ProfessorUI extends javax.swing.JFrame {
     private File p2File = null;
     private File p3File = null;
     private File p4File = null;
+    
+    public Widget professorWidget;
     
     private String curOpen = "";
 
@@ -187,6 +191,11 @@ public class ProfessorUI extends javax.swing.JFrame {
         jSlider1.setPaintTicks(true);
         jSlider1.setSnapToTicks(true);
         jSlider1.setValue(23);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
 
         jLabel5.setText("Temperatura");
 
@@ -665,6 +674,13 @@ public class ProfessorUI extends javax.swing.JFrame {
             System.out.println("Cancelado.");
         }
     }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+//        Attributes at = new Attributes();
+//        at.addAttribute("temperature", jSlider1.getValue());
+//        at.addAttribute("time", timeToInt(getSelectedButtonText(buttonGroup1)));
+//        professorWidget.updateData(at);
+    }//GEN-LAST:event_jSlider1StateChanged
 
     /**
      * @param args the command line arguments

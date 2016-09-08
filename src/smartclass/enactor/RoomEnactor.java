@@ -198,6 +198,30 @@ public class RoomEnactor extends Enactor {
 
             //adiciona o enactor
             addReference(er);
+        }else if("ProfessorWidget".equals(type)){
+            //Cria uma query
+            AbstractQueryItem<?, ?> offProjector
+                    = new ORQueryItem(
+                            
+                    );
+
+            //cria a referencia
+            EnactorReference er = new RoomEnactorProfessorReference(
+                    offProjector,
+                    "ProfessorChange");
+
+            //adiciona o serviço
+            er.addServiceInput(new ServiceInput("ProfessorService", "professorControl",
+                    new Attributes() {
+                {
+                    addAttribute("temperature", Integer.class);
+                    addAttribute("time", Integer.class);
+                    addAttribute("slides", Integer.class);
+                }
+            }));
+
+            //adiciona o enactor
+            addReference(er);
         }
 
         start();
@@ -303,6 +327,27 @@ public class RoomEnactor extends Enactor {
             }
 
             data.setAttributeValue("status", status);
+            data.setAttributeValue("temperature", inWidgetState.getAttributeValue("temperature"));
+            data.setAttributeValue("time", inWidgetState.getAttributeValue("time"));
+            outAtts.putAll(data.toAttributes());
+
+            return outAtts;
+        }
+
+    }
+    
+    private class RoomEnactorProfessorReference extends EnactorReference {
+
+        public RoomEnactorProfessorReference(AbstractQueryItem<?, ?> conditionQuery, String outcomeValue) {
+            super(RoomEnactor.this, conditionQuery, outcomeValue);
+        }
+
+        @Override
+        protected Attributes conditionSatisfied(ComponentDescription inWidgetState, Attributes outAtts) {
+            long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
+            WidgetData data = new WidgetData("ProfessorWidget", timestamp);
+
+            data.setAttributeValue("slides", inWidgetState.getAttributeValue("slides"));
             data.setAttributeValue("temperature", inWidgetState.getAttributeValue("temperature"));
             data.setAttributeValue("time", inWidgetState.getAttributeValue("time"));
             outAtts.putAll(data.toAttributes());

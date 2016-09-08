@@ -60,6 +60,7 @@ public class ComputerService extends Service {
             ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
             classRoomUI.setVisible(true);
             classRoomUI.computerOn();
+            classRoomUI.theProfessor(p.getName());
         } else {
             ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
             classRoomUI.setVisible(true);

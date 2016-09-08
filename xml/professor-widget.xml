@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Widget xmlns="http://www.contexttoolkit.org/ctk" name="ProfessorWidget">		
+	<Attributes>
+                <Attribute name="temperature" type="short" />
+                <Attribute name="time" type="int" />
+                <Attribute name="slides" type="string" />
+	</Attributes>	
+</Widget>

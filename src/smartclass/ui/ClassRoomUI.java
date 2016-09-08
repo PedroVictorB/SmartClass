@@ -20,6 +20,9 @@ public class ClassRoomUI extends javax.swing.JFrame {
         initComponents();
         jLabel4.setVisible(false);
     }
+    
+    private boolean presence = false;
+    private int time = 0;
 
     public static synchronized ClassRoomUI getInstance() {
         return classRoomUI;
@@ -37,11 +40,15 @@ public class ClassRoomUI extends javax.swing.JFrame {
     
     public void projectorOn() {
         System.out.println("projectorOn");
+        presence = true;
+        jLabel4.setVisible(true);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/projetor_ligado.png")));
     }
 
     public void projectorOff() {
         System.out.println("projectorOff");
+        presence = false;
+        jLabel4.setVisible(false);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/projetor_desligado.png")));
     }
     
@@ -65,6 +72,33 @@ public class ClassRoomUI extends javax.swing.JFrame {
         System.out.println("airOff");
         jLabel6.setText("");
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/ar_desligado.png")));
+    }
+    
+    public void airTemp(int temp){
+        if(presence){
+            jLabel6.setText(temp+"");
+        }else{
+            jLabel6.setText("");
+        }
+    }
+    
+    public void theProfessor(String p){
+        switch (p) {
+            case "p1":
+                jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/professor_1.png")));
+                break;
+            case "p2":
+                jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/professor_2.png")));
+                break;
+            case "p3":
+                jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/professor_3.png")));
+                break;
+            case "p4":
+                jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/smartclass/ui/imagens/professor_4.png")));
+                break;
+            default:
+                break;
+        }
     }
 
     /**

@@ -16,6 +16,7 @@ import smartclass.enactor.RoomEnactor;
 import smartclass.services.AirService;
 import smartclass.services.ComputerService;
 import smartclass.services.LightService;
+import smartclass.services.ProfessorService;
 import smartclass.services.ProjectorService;
 import smartclass.ui.ClassRoomUI;
 import smartclass.ui.ClassUI;
@@ -49,7 +50,8 @@ public class SmartClass {
         Widget computerWidget = WidgetXmlParser.createWidget("xml/computer-widget.xml");
         Widget lightWidget = WidgetXmlParser.createWidget("xml/light-widget.xml");
         Widget airWidget = WidgetXmlParser.createWidget("xml/air-widget.xml");
-
+//        Widget professorWidget = WidgetXmlParser.createWidget("xml/professor-widget.xml");
+        
         LightService ls = new LightService(lightWidget);
         lightWidget.addService(ls);
         
@@ -61,17 +63,22 @@ public class SmartClass {
         
         AirService as = new AirService(airWidget);
         airWidget.addService(as);
+        
+//        ProfessorService profs = new ProfessorService(professorWidget);
+//        professorWidget.addService(profs);
 
         AbstractQueryItem<?, ?> roomWidgetQuery = WidgetXmlParser.createWidgetSubscriptionQuery(roomWidget);
         AbstractQueryItem<?, ?> lightWidgetQuery = WidgetXmlParser.createWidgetSubscriptionQuery(lightWidget);
         AbstractQueryItem<?, ?> projectorWidgetQuery = WidgetXmlParser.createWidgetSubscriptionQuery(projectorWidget);
         AbstractQueryItem<?, ?> computerWidgetQuery = WidgetXmlParser.createWidgetSubscriptionQuery(computerWidget);
         AbstractQueryItem<?, ?> airWidgetQuery = WidgetXmlParser.createWidgetSubscriptionQuery(airWidget);
+//        AbstractQueryItem<?, ?> professorWidgetQuery = WidgetXmlParser.createWidgetSubscriptionQuery(professorWidget);
 
         RoomEnactor roomEnactorLight = new RoomEnactor(roomWidgetQuery, lightWidgetQuery, "light", "", "LightWidget");
         RoomEnactor roomEnactorProjector = new RoomEnactor(roomWidgetQuery, projectorWidgetQuery, "status", "", "ProjectorWidget");
         RoomEnactor roomEnactorComputer = new RoomEnactor(roomWidgetQuery, computerWidgetQuery, "status", "", "ComputerWidget");
         RoomEnactor roomEnactorAir = new RoomEnactor(roomWidgetQuery, airWidgetQuery, "status", "", "AirWidget");
+//        RoomEnactor professorEnactorAir = new RoomEnactor(roomWidgetQuery, professorWidgetQuery, "status", "", "ProfessorWidget");
         
         ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
         classRoomUI.setVisible(true);
