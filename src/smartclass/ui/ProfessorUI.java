@@ -27,7 +27,7 @@ public class ProfessorUI extends javax.swing.JFrame {
     private File p3File = null;
     private File p4File = null;
     
-    public Widget professorWidget;
+//    public Widget professorWidget;
     
     private String curOpen = "";
 

@@ -199,29 +199,29 @@ public class RoomEnactor extends Enactor {
             //adiciona o enactor
             addReference(er);
         }else if("ProfessorWidget".equals(type)){
-            //Cria uma query
-            AbstractQueryItem<?, ?> offProjector
-                    = new ORQueryItem(
-                            
-                    );
-
-            //cria a referencia
-            EnactorReference er = new RoomEnactorProfessorReference(
-                    offProjector,
-                    "ProfessorChange");
-
-            //adiciona o serviço
-            er.addServiceInput(new ServiceInput("ProfessorService", "professorControl",
-                    new Attributes() {
-                {
-                    addAttribute("temperature", Integer.class);
-                    addAttribute("time", Integer.class);
-                    addAttribute("slides", Integer.class);
-                }
-            }));
-
-            //adiciona o enactor
-            addReference(er);
+//            //Cria uma query
+//            AbstractQueryItem<?, ?> offProjector
+//                    = new ORQueryItem(
+//                            
+//                    );
+//
+//            //cria a referencia
+//            EnactorReference er = new RoomEnactorProfessorReference(
+//                    offProjector,
+//                    "ProfessorChange");
+//
+//            //adiciona o serviço
+//            er.addServiceInput(new ServiceInput("ProfessorService", "professorControl",
+//                    new Attributes() {
+//                {
+//                    addAttribute("temperature", Integer.class);
+//                    addAttribute("time", Integer.class);
+//                    addAttribute("slides", Integer.class);
+//                }
+//            }));
+//
+//            //adiciona o enactor
+//            addReference(er);
         }
 
         start();
