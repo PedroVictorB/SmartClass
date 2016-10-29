@@ -99,26 +99,8 @@ public class SmartClass {
             ProfessorUI professorUI = ProfessorUI.getInstance();
             professorUI.setVisible(true);
         } else if (tipo == 1) {
-            NgsiRequest ng = new NgsiRequest();
-            String bodyQuery = "{\n"
-                    + "	\"entities\":[\n"
-                    + "		{\n"
-                    + "			\"type\": \"Sala\",\n"
-                    + "			\"isPattern\": \"true\",\n"
-                    + "			\"id\": \"SalaInteligente.*\"\n"
-                    + "		}\n"
-                    + "	]\n"
-                    + "}";
-            String resposta = ng.sendPost("/v1/queryContext", bodyQuery);
-
-            ObjectMapper mapper = new ObjectMapper();
-
-            try {
-                ContextResponsesContainer t = mapper.readValue(resposta, ContextResponsesContainer.class);
-                System.out.println(t.getContextResponses().length);
-            } catch (IOException ex) {
-                Logger.getLogger(SmartClass.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            ClassRoomUI classRoomUI = ClassRoomUI.getInstance();
+            classRoomUI.setVisible(true);
         }
     }
 
