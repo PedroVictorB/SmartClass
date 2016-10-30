@@ -60,6 +60,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
         for (ContextResponses contextResponse : crc.getContextResponses()) {
             jComboBox1.addItem(contextResponse.getContextElement().getId());
         }
+        NioSocketServer server = new NioSocketServer();
     }
 
     private boolean presence = false;
@@ -163,7 +164,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
         return null;
     }
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {                                            
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if ("".equals(jComboBox1.getSelectedItem().toString()) || jComboBox1.getSelectedItem().toString() == null) {
                 System.out.println("Nada selecionado.");
@@ -215,7 +216,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
                             + "}";
                     String resposta2 = ng.sendPost("/v1/subscribeContext", bodySubs);
                     SubscribeResponseContainer sr = mapper.readValue(resposta2, SubscribeResponseContainer.class);
-                    NioSocketServer server = new NioSocketServer();
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(ClassRoomUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
