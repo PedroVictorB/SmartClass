@@ -20,58 +20,50 @@ import smartclass.entities.ContextResponsesSubscriptionContainer;
 public class NioSocketServer {
 
     public NioSocketServer() {
-        // Create an AsynchronousServerSocketChannel that will listen on port 5000
+        // Cria um canal que escuta na pora 1026
         final AsynchronousServerSocketChannel listener;
         try {
             listener = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(1026));
-            // Listen for a new request
+            // Espera um request
         listener.accept(null, new CompletionHandler<AsynchronousSocketChannel, Void>() {
 
             @Override
             public void completed(AsynchronousSocketChannel ch, Void att) {
-                // Accept the next connection
+                // Aceita a conexão
                 listener.accept(null, this);
                 
-                // Greet the client
-                ch.write(ByteBuffer.wrap("Hello, I am Echo Server 2020, let's have an engaging conversation!\n".getBytes()));
+                // Escreve a volta para o cliente (não necessário)
+                ch.write(ByteBuffer.wrap("Conversando!!!\n".getBytes()));
 
-                // Allocate a byte buffer (4K) to read from the client
+                // Buffer para ler mensagem do cliente (4K)
                 ByteBuffer byteBuffer = ByteBuffer.allocate(4096);
                 try {
-                    // Read the first line
                     int bytesRead = ch.read(byteBuffer).get(20, TimeUnit.SECONDS);
 
                     boolean running = true;
                     while (bytesRead != -1 && running) {
-                        // Make sure that we have data to read
+                        // Checagem de mensagem nula
                         if (byteBuffer.position() > 2) {
-                            // Make the buffer ready to read
                             byteBuffer.flip();
 
-                            // Convert the buffer into a line
                             byte[] lineBytes = new byte[bytesRead];
                             byteBuffer.get(lineBytes, 0, bytesRead);
                             String line = new String(lineBytes);
 
-                            // Debug
                             String line2 = line.substring(line.indexOf("\r\n")+225);
                             ObjectMapper mapper = new ObjectMapper();
                             ContextResponsesSubscriptionContainer crc = mapper.readValue(line2, ContextResponsesSubscriptionContainer.class);
-//                            for(Attributes a : crc.getContextResponses()[0].getContextElement().getAttributes()){
-//                                System.out.println("Nome: "+a.getName()+" / Tipo: "+a.getType()+" / Valor: "+a.getValue());
-//                            }
-                            Service s = new Service(crc.getContextResponses()[0].getContextElement().getAttributes(), crc.getContextResponses()[0].getContextElement().getId());
                             
-                            // Echo back to the caller
+                            // Chama o serviço para mudar a UI
+                            Service s = new Service(crc.getContextResponses()[0].getContextElement().getAttributes(), crc.getContextResponses()[0].getContextElement().getId());
+
                             ch.write(ByteBuffer.wrap(line.getBytes()));
 
-                            // Make the buffer ready to write
                             byteBuffer.clear();
 
-                            // Read the next line
                             bytesRead = ch.read(byteBuffer).get(20, TimeUnit.SECONDS);
                         } else {
-                            // An empty line signifies the end of the conversation in our protocol
+                            // Linha nula é o fim da mensagem
                             running = false;
                         }
                     }
@@ -81,7 +73,7 @@ public class NioSocketServer {
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (TimeoutException e) {
-                    // The user exceeded the 20 second timeout, so close the connection
+                    // Timeout de 20seg
                     ch.write(ByteBuffer.wrap("Good Bye\n".getBytes()));
                     System.out.println("Connection timed out, closing connection");
                 } catch (IOException ex) {
@@ -89,7 +81,7 @@ public class NioSocketServer {
                 }
 
                 System.out.println("End of conversation");
-                // Close the connection if we need to
+                // Fecha a conexão se necessário
                 if (ch.isOpen()) {
                     System.out.println("Channel is open");
                     try {
