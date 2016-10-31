@@ -12,16 +12,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.SocketException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.Channels;
 import java.nio.channels.CompletionHandler;
 import java.nio.charset.Charset;
+import java.util.Enumeration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -164,7 +171,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
         return null;
     }
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {                                            
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if ("".equals(jComboBox1.getSelectedItem().toString()) || jComboBox1.getSelectedItem().toString() == null) {
                 System.out.println("Nada selecionado.");
@@ -199,7 +206,7 @@ public class ClassRoomUI extends javax.swing.JFrame {
                             + "        \"temperature\",\n"
                             + "        \"time\"\n"
                             + "    ],\n"
-                            + "    \"reference\": \"http://186.236.220.166:1026\",\n"
+                            + "    \"reference\": \"http://"+getIpAddress()+":1026\",\n"
                             + "    \"duration\": \"P1M\",\n"
                             + "    \"notifyConditions\": [\n"
                             + "        {\n"
@@ -216,12 +223,26 @@ public class ClassRoomUI extends javax.swing.JFrame {
                             + "}";
                     String resposta2 = ng.sendPost("/v1/subscribeContext", bodySubs);
                     SubscribeResponseContainer sr = mapper.readValue(resposta2, SubscribeResponseContainer.class);
-                    
+
                 } catch (IOException ex) {
                     Logger.getLogger(ClassRoomUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+    }
+
+    public static String getIpAddress() {
+        URL whatismyip;
+        try {
+            whatismyip = new URL("http://checkip.amazonaws.com");
+            BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+            return in.readLine();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ClassRoomUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ClassRoomUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**
